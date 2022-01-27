@@ -62,3 +62,8 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+
+.top-nav-links {
+    background-image: linear-gradient(45deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
