@@ -1,0 +1,34 @@
+﻿@page "/state-container-example"
+@using Blaze.Models;
+@implements IDisposable
+@inject AppStateContainer stateContainer
+
+<h1>State Container Example component</h1>
+
+<p>State Container component Property: <b>@stateContainer.Property</b></p>
+
+<p>
+    <button @onclick="ChangePropertyValue">
+        Change the Property from the State Container Example component
+    </button>
+</p>
+
+<Nested />
+
+@code {
+    protected override void OnInitialized()
+    {
+        stateContainer.OnChange += StateHasChanged;
+    }
+
+    private void ChangePropertyValue()
+    {
+        stateContainer.Property = "New value set in the State " +
+            $"Container Example component: {DateTime.Now}";
+    }
+
+    public void Dispose()
+    {
+        stateContainer.OnChange -= StateHasChanged;
+    }
+}

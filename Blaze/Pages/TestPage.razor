@@ -1,0 +1,70 @@
+﻿@using Blaze.Components;
+@using Blaze.Models
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using System.Security.Claims
+@attribute [AllowAnonymous]
+@page "/test"
+@inject UserState userState
+@implements IDisposable
+
+<PageTitle>Test page</PageTitle>
+
+<h3>Test page</h3>
+
+<EnvironmentDisplay />
+
+<LoginDisplay />
+
+@*<Login />*@
+
+&nbsp;
+
+<div>
+    <button class="btn btn-primary" @onclick="SignIn">Sign in</button>
+    <p role="status">Current count: @currentCount</p>
+</div>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+
+    private int currentCount = 0;
+
+    protected override void OnInitialized()
+    {
+        //stateContainer.OnChange += StateHasChanged;
+        userState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        userState.OnChange -= StateHasChanged;
+    }
+
+    private async void SignIn()
+    {
+        // Some sign in action
+        currentCount += 1;
+
+        List<Claim> claims = new List<Claim>();
+        claims.Add(new Claim(ClaimTypes.Name, "SomeUsrname"));
+
+        ClaimsIdentity id = new ClaimsIdentity(claims);
+        ClaimsPrincipal p = new ClaimsPrincipal(id);
+        
+        userState.ClaimsPrincipal = p;
+
+        var authState = await authenticationStateTask;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            Console.WriteLine($"{user.Identity.Name} is authenticated.");
+        }
+        else
+        {
+            Console.WriteLine("The user is NOT authenticated.");
+        }
+    }
+}
