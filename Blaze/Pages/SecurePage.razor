@@ -1,0 +1,13 @@
+﻿@page "/secure"
+@attribute [Authorize]
+
+@using Blaze.Components;
+
+@code{
+}
+
+<PageTitle>Secure page</PageTitle>
+
+<h3>Secure page</h3>
+
+<p>You should not see content if you are not authenticated and authorized.</p>

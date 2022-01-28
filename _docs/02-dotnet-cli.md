@@ -4,6 +4,8 @@ Progressive Web App
 
 `dotnet new blazorwasm --pwa -o Blaze`
 
+dotnet add .\Blaze\ package Microsoft.AspNetCore.Components.Authorization
+dotnet add .\Blaze\ package Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
 # Reference
 

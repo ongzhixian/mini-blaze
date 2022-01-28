@@ -1,0 +1,31 @@
+﻿@using Blaze.Models;
+@implements IDisposable
+@inject AppStateContainer stateContainer
+
+<h2>Nested component</h2>
+
+<p>Nested component Property: <b>@stateContainer.Property</b></p>
+
+<p>
+    <button @onclick="ChangePropertyValue">
+        Change the Property from the Nested component
+    </button>
+</p>
+
+@code {
+    protected override void OnInitialized()
+    {
+        stateContainer.OnChange += StateHasChanged;
+    }
+
+    private void ChangePropertyValue()
+    {
+        stateContainer.Property = 
+            $"New value set in the Nested component: {DateTime.Now}";
+    }
+
+    public void Dispose()
+    {
+        stateContainer.OnChange -= StateHasChanged;
+    }
+}
