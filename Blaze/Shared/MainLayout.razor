@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using Blaze.Components
+@inherits LayoutComponentBase
 
 <div class="page">
     <div class="sidebar">
@@ -13,5 +14,11 @@
         <article class="content px-4">
             @Body
         </article>
+
+        <footer class="px-4">
+            <EnvironmentDisplay />
+
+            <LoginDisplay />
+        </footer>
     </main>
 </div>

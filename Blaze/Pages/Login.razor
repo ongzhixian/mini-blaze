@@ -1,0 +1,31 @@
+﻿@using Blaze.Models
+
+<EditForm Model="@loginModel" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="username" @bind-Value="loginModel.Username" />
+
+    <InputText id="password" @bind-Value="loginModel.Password" type="password" />
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+
+@code {
+    private LoginModel loginModel = new();
+    private EditContext? editContext;
+
+    protected override void OnInitialized()
+    {
+        editContext = new(loginModel);
+    }
+
+    private void HandleValidSubmit()
+    {
+        //Logger.LogInformation("HandleValidSubmit called");
+
+        // Process the valid form
+
+    }
+}
